@@ -117,7 +117,8 @@ public class Minimarket {
                 System.out.println("1. Mostrar inventario");
                 System.out.println("2. Agregar producto al inventario");
                 System.out.println("3. Generar solicitud de stock");
-                System.out.println("4. Regresar al menú principal");
+                System.out.println("4. Agregar stock a un producto existente");
+                System.out.println("5. Regresar al menú principal");
                 System.out.print("Selecciona una opción: ");
                 int opcion = scanner.nextInt();
 
@@ -139,8 +140,28 @@ public class Minimarket {
                         System.out.println("Producto agregado exitosamente.");
                     }
                     case 3 -> inventario.generarSolicitud();
-                    case 4 -> salirInventario = true;
-                    default -> System.out.println("Opción no válida. Por favor, selecciona una opción del 1 al 4.");
+                    case 4 -> {
+                        // Agregar stock a un producto existente
+                        inventario.listarProductos(); // Mostrar los productos
+                        System.out.print("Selecciona el índice del producto: ");
+                        int indice = scanner.nextInt() - 1; // Ajustar a índice de arreglo
+                        Producto producto = inventario.obtenerProducto(indice);
+
+                        if (producto != null) {
+                            System.out.print("Cantidad a agregar al stock: ");
+                            int cantidad = scanner.nextInt();
+                            if (cantidad > 0) {
+                                producto.setStock(producto.getStock() + cantidad);
+                                System.out.println("Stock actualizado exitosamente. Nuevo stock: " + producto.getStock());
+                            } else {
+                                System.out.println("Cantidad inválida. Intenta nuevamente.");
+                            }
+                        } else {
+                            System.out.println("Producto no encontrado.");
+                        }
+                    }
+                    case 5 -> salirInventario = true;
+                    default -> System.out.println("Opción no válida. Por favor, selecciona una opción del 1 al 5.");
                 }
             } catch (Exception e) {
                 System.out.println("Error: Entrada no válida. Por favor, intenta de nuevo.");
