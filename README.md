@@ -1,9 +1,9 @@
 # Modelamiento-G3
 # Integrantes: 
-- Felipe Escobar
-- Daniel Canto
-- Pedro Marin
-- Carlos Pacheco
+- Daniel Canto Moreno
+- Felipe Escobar Stuardo
+- Pedro Marin Gallegos
+- Carlos Pacheco Troncoso
 
 ## Tabla de Contenidos
 - [Descripción](#descripción)
