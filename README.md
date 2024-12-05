@@ -30,7 +30,7 @@ Este proyecto simula un sistema de gestión para un minimarket. Permite realizar
 ## Instalación
 
 1. Descarga el repositorio que contiene el proyecto.
-2. Crea un nuevo proyecto en IntelliJ IDEA con el nombre "MinimarketDCWebsite".
+2. Crea un nuevo proyecto con Maven Archetype en IntelliJ IDEA con el nombre "MinimarketDCWebsite".
 3. Copia el repositorio dentro del nuevo proyecto creado.
 4. Conecta la carpeta Tomcat en Settings>"Tomcat Server" seleccionando la carpeta 'apache-tomcat-10.1.33'.
 5. Ejecuta la aplicación haciendo clic en el archivo principal (como `pom.xml`) y seleccionando **Run 'Smart Tomcat: Tomcat: MinimarketDCWebsite'**.
