@@ -23,7 +23,7 @@ Este proyecto simula un sistema de gestión para un minimarket. Permite realizar
 ## Requisitos
 
 1. Instala Smart Tomcat en Intellij IDEA>Settings>Plugins.
-2. Instala [Tomcat ver.10.1.33.0](https://cdn.discordapp.com/attachments/1124094970681364550/1314048140466454609/apache-tomcat-10.1.33-windows-x64.zip?ex=67525a32&is=675108b2&hm=d21178a6e55c5f8cad0c503e25834982b299ceefb67759b9403165c37da78fcf&)
+2. Instala [Tomcat ver.10.1.33.0](https://cdn.discordapp.com/attachments/973705374525968477/1315180483151265842/apache-tomcat-10.1.33-windows-x64.zip?ex=675678c6&is=67552746&hm=24f1f1ff8791ed27ea87e17ca836e00d284770fa0ab4b012534c045bd89d9e37&)
 3. Descomprime el archivo 'apache-tomcat-10.1.33-windows-x64'.
 4. Tener sdk openjdk-21 version 21 o superior.
 
