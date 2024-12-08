@@ -2,7 +2,12 @@
 <%@ page import="java.util.ArrayList" %>
 <%
     // Inicialización del inventario
-    Inventario inventario = new Inventario();
+    Inventario inventario = (Inventario) session.getAttribute("inventario");
+    if (inventario == null) {
+        // Si no existe en la sesión, inicializar uno nuevo
+        inventario = new Inventario();
+        session.setAttribute("inventario", inventario);
+    }
     String mensaje = "";
 
     // Acción recibida del formulario
