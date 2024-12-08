@@ -73,6 +73,16 @@ public class Inventario implements Serializable {
         }
     }
 
+    public Producto obtenerProductoPorNombre(String nombre) {
+        for (Producto producto : productos) {
+            if (producto.getNombre().equalsIgnoreCase(nombre)) {
+                return producto;
+            }
+        }
+        return null;
+    }
+
+
     public void limpiarInventario() {
         productos.clear();
     }

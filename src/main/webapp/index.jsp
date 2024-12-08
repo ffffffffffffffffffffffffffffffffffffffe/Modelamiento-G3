@@ -1,9 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    // Verifica si el usuario tiene una sesión activa
+    if (session == null || session.getAttribute("username") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 <html>
 <head>
     <title>Minimarket - Menú Principal</title>
     <style>
-        /* Animación de Fadein desde arriba */
         @keyframes fadeInFromTop {
             0% {
                 opacity: 0;
@@ -24,6 +30,8 @@
             color: #292a2b;
             height: 100vh;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         header {
@@ -40,10 +48,6 @@
 
         .header-left {
             text-align: left;
-        }
-
-        .header-right {
-            text-align: right;
         }
 
         header h1 {
@@ -63,18 +67,11 @@
             font-weight: bold;
         }
 
-        header .header-right p:last-child {
-            font-size: 90px;
-            font-weight: bolder;
-            color: #fafafb;
-            text-transform: uppercase;
-        }
-
         .container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 70%;
+            flex-grow: 1;
             padding: 20px;
         }
 
@@ -101,20 +98,20 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Hover para cambiar color de fondo y sombra */
         .menu a:hover {
             background-color: #444444;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
 
+        /* Estilo para el pie de página */
         footer {
             text-align: center;
             background-color: rgba(93, 58, 27, 0.8);
             color: #f1e3c6;
             padding: 15px;
             font-size: 18px;
+            margin-top: auto;
         }
-
     </style>
 </head>
 <body>
@@ -124,25 +121,20 @@
         <h1>Minimarket</h1>
         <p>SUPERMERCADO Y BOTILLERÍA</p>
     </div>
-    <div class="header-right">
-        <p>JS</p>
-    </div>
 </header>
 
 <div class="container">
-
     <!-- Menú -->
     <div class="menu">
         <a href="ventas.jsp">Menú Ventas</a>
         <a href="inventario.jsp">Menú Inventario</a>
         <a href="historial.jsp">Historial de Ventas</a>
-        <a href="salir.jsp">Salir</a>
+        <a href="LogoutServlet">Salir</a> <!-- Redirige al servlet de logout -->
     </div>
-
 </div>
 
 <footer>
-    <p>Dirección: Brisas Mediterráneas 1845 - Num. Contacto: +56 985124881 </p>
+    <p>Dirección: Brisas Mediterráneas 1845 - Num. Contacto: +56 985124881</p>
 </footer>
 
 </body>

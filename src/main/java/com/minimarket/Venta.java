@@ -102,6 +102,15 @@ public class Venta implements Serializable {
         }
     }
 
+    public static String getRutaHistorialVentas() {
+        // Obtener la ruta base del proyecto
+        String basePath = System.getProperty("user.home"); // Carpeta del usuario actual
+        String rutaRelativa = ".SmartTomcat\\MinimarketDCWebsite\\MinimarketDCWebsite\\historial_ventas.obj";
+
+        // Construir la ruta completa
+        return basePath + File.separator + rutaRelativa.replace("\\", File.separator);
+    }
+
     public void verHistorial() {
         if (historialVentas.isEmpty()) {
             System.out.println("\nNo hay datos de ventas disponibles.");
