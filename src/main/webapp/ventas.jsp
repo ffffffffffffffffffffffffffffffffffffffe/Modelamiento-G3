@@ -69,6 +69,24 @@
     } else if ("mostrarGanancias".equals(accion)) {
         mensaje = "Ganancias diarias: $" + venta.getGanancias();
     }
+
+    // Lógica de filtro de productos
+    String nombreFiltro = request.getParameter("nombreFiltro");
+    ArrayList<Producto> productosFiltrados = inventario.getProductos();
+
+    if (nombreFiltro != null && !nombreFiltro.isEmpty()) {
+        productosFiltrados = new ArrayList<>();
+        for (Producto p : inventario.getProductos()) {
+            if (p.getNombre().toLowerCase().contains(nombreFiltro.toLowerCase())) {
+                productosFiltrados.add(p);
+            }
+        }
+    }
+
+    // Si no hay filtro activo, mostrar todos los productos
+    if (nombreFiltro == null) {
+        productosFiltrados = inventario.getProductos();
+    }
 %>
 
 <!DOCTYPE html>
@@ -212,7 +230,21 @@
 <div class="container">
     <p class="mensaje"><%= mensaje %></p>
 
-    <!-- Listar productos -->
+    <!-- Filtro de productos -->
+    <h2>Filtrar productos</h2>
+    <form action="ventas.jsp" method="get">
+        <label for="nombreFiltro">Filtrar por nombre:</label>
+        <input type="text" name="nombreFiltro" id="nombreFiltro" value="<%= nombreFiltro != null ? nombreFiltro : "" %>">
+
+        <button type="submit">Aplicar filtro</button>
+    </form>
+
+    <!-- Botón para quitar filtros -->
+    <form action="ventas.jsp" method="get">
+        <button type="submit">Quitar Filtros</button>
+    </form>
+
+    <!-- Listar productos filtrados -->
     <h2>Productos disponibles</h2>
     <form action="ventas.jsp" method="post">
         <table>
@@ -223,13 +255,14 @@
                 <th>Stock</th>
             </tr>
             <%
-                // Listar productos desde el inventario
-                ArrayList<Producto> productos = inventario.getProductos();
-                for (int i = 0; i < productos.size(); i++) {
-                    Producto p = productos.get(i);
+                // Listar productos filtrados
+                for (int i = 0; i < productosFiltrados.size(); i++) {
+                    Producto p = productosFiltrados.get(i);
+                    // Obtener el índice del producto en el inventario original
+                    int originalIndex = inventario.getProductos().indexOf(p) + 1; // +1 para mostrar el número comenzando desde 1
             %>
             <tr>
-                <td><%= i + 1 %></td>
+                <td><%= originalIndex %></td> <!-- Muestra el índice original -->
                 <td><%= p.getNombre() %></td>
                 <td><%= p.getPrecio() %></td>
                 <td><%= p.getStock() %></td>
@@ -239,7 +272,7 @@
             %>
         </table>
         <label id="producto">Seleccione un producto:</label>
-        <input type="number" name="producto" required min="1" max="<%= productos.size() %>">
+        <input type="number" name="producto" required min="1" max="<%= inventario.getProductos().size()+1 %>">
         <label id="cantidad">Cantidad:</label>
         <input type="number" name="cantidad" required min="1">
         <button type="submit" name="accion" value="agregar">Agregar al carrito</button>
@@ -319,7 +352,7 @@
     </form>
 
     <!-- Regresar al menú principal -->
-    <h2>Menú Principal</h2>
+    <h2>Menu Principal</h2>
     <form action="index.jsp" method="get">
         <button type="submit">Volver al Menú Principal</button>
     </form>

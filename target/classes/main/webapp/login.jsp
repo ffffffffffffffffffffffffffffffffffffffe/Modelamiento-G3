@@ -12,7 +12,17 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background-image: url('images/loginBackground.jpg'); /* Imagen de fondo opcional */
+      position: relative; /* Añadir para colocar el pseudo-elemento */
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('images/minimarketFront.jpeg'); /* Imagen de fondo */
       background-size: cover;
       background-position: center;
     }
@@ -25,6 +35,7 @@
       width: 100%;
       max-width: 400px;
       text-align: center;
+      position: relative; /* Asegura que el formulario esté por encima del difuminado */
     }
 
     .login-container h2 {

@@ -25,8 +25,6 @@
       background-image: url('images/minimarketFront.jpeg'); /* Imagen de fondo */
       background-size: cover;
       background-position: center;
-      opacity: 0.7; /* 70% de opacidad para la imagen */
-      z-index: -1; /* Asegura que el contenido esté encima de la imagen */
     }
 
     .login-container {

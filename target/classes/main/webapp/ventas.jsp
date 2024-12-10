@@ -69,6 +69,24 @@
     } else if ("mostrarGanancias".equals(accion)) {
         mensaje = "Ganancias diarias: $" + venta.getGanancias();
     }
+
+    // Lógica de filtro de productos
+    String nombreFiltro = request.getParameter("nombreFiltro");
+    ArrayList<Producto> productosFiltrados = inventario.getProductos();
+
+    if (nombreFiltro != null && !nombreFiltro.isEmpty()) {
+        productosFiltrados = new ArrayList<>();
+        for (Producto p : inventario.getProductos()) {
+            if (p.getNombre().toLowerCase().contains(nombreFiltro.toLowerCase())) {
+                productosFiltrados.add(p);
+            }
+        }
+    }
+
+    // Si no hay filtro activo, mostrar todos los productos
+    if (nombreFiltro == null) {
+        productosFiltrados = inventario.getProductos();
+    }
 %>
 
 <!DOCTYPE html>
@@ -82,6 +100,11 @@
             font-family: Arial, sans-serif;
             margin: 0;
             background-color: #f1e3c6;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
         }
 
         /* Estilos del header */
@@ -103,17 +126,17 @@
             border-bottom: 5px solid #000000;
             animation: fadeInFromTop 1s ease-out;
             color: #fafafb;
-            width: 100%; /* Asegura que ocupe todo el ancho */
+            width: 100%;
             position: relative;
         }
 
         header h1 {
-            font-size: 36px; /* Aumento del tamaño de la fuente */
+            font-size: 15px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 5px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            color: white; /* Cambié el color a blanco */
+            color: white;
         }
 
         header p {
@@ -124,12 +147,15 @@
 
         /* Estilos para el container */
         .container {
-            max-width: 1200px;  /* Establece un ancho máximo para el container */
+            max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
             background-color: #ffffff;
-            border-radius: 15px; /* Bordes redondeados */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h1 {
@@ -176,13 +202,13 @@
             color: white;
             border: none;
             cursor: pointer;
-            border-radius: 5px; /* Bordes redondeados para los botones */
-            transition: background-color 0.3s, transform 0.2s; /* Efecto suave */
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
         button:hover {
-            background-color: orangered; /* Cambia a un tono más oscuro al pasar el mouse */
-            transform: scale(1.05); /* Efecto de agrandamiento en hover */
+            background-color: orangered;
+            transform: scale(1.05);
         }
 
         .mensaje {
@@ -204,7 +230,21 @@
 <div class="container">
     <p class="mensaje"><%= mensaje %></p>
 
-    <!-- Listar productos -->
+    <!-- Filtro de productos -->
+    <h2>Filtrar productos</h2>
+    <form action="ventas.jsp" method="get">
+        <label for="nombreFiltro">Filtrar por nombre:</label>
+        <input type="text" name="nombreFiltro" id="nombreFiltro" value="<%= nombreFiltro != null ? nombreFiltro : "" %>">
+
+        <button type="submit">Aplicar filtro</button>
+    </form>
+
+    <!-- Botón para quitar filtros -->
+    <form action="ventas.jsp" method="get">
+        <button type="submit">Quitar Filtros</button>
+    </form>
+
+    <!-- Listar productos filtrados -->
     <h2>Productos disponibles</h2>
     <form action="ventas.jsp" method="post">
         <table>
@@ -215,13 +255,14 @@
                 <th>Stock</th>
             </tr>
             <%
-                // Listar productos desde el inventario
-                ArrayList<Producto> productos = inventario.getProductos();
-                for (int i = 0; i < productos.size(); i++) {
-                    Producto p = productos.get(i);
+                // Listar productos filtrados
+                for (int i = 0; i < productosFiltrados.size(); i++) {
+                    Producto p = productosFiltrados.get(i);
+                    // Obtener el índice del producto en el inventario original
+                    int originalIndex = inventario.getProductos().indexOf(p) + 1; // +1 para mostrar el número comenzando desde 1
             %>
             <tr>
-                <td><%= i + 1 %></td>
+                <td><%= originalIndex %></td> <!-- Muestra el índice original -->
                 <td><%= p.getNombre() %></td>
                 <td><%= p.getPrecio() %></td>
                 <td><%= p.getStock() %></td>
@@ -231,7 +272,7 @@
             %>
         </table>
         <label id="producto">Seleccione un producto:</label>
-        <input type="number" name="producto" required min="1" max="<%= productos.size() %>">
+        <input type="number" name="producto" required min="1" max="<%= inventario.getProductos().size()+1 %>">
         <label id="cantidad">Cantidad:</label>
         <input type="number" name="cantidad" required min="1">
         <button type="submit" name="accion" value="agregar">Agregar al carrito</button>
@@ -311,14 +352,13 @@
     </form>
 
     <!-- Regresar al menú principal -->
-    <h2>Menú Principal</h2>
+    <h2>Menu Principal</h2>
     <form action="index.jsp" method="get">
         <button type="submit">Volver al Menú Principal</button>
     </form>
 </div>
 
 <script>
-    // Mostrar el campo de monto a pagar solo si el método de pago es "Efectivo"
     function mostrarMontoPago() {
         var metodoPago = document.querySelector("select[name='metodoPago']").value;
         var montoPagoDiv = document.getElementById("montoPagoDiv");
