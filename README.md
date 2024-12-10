@@ -9,6 +9,7 @@
 - [Descripción](#descripción)
 - [Requisitos](#requisitos)
 - [Instalación](#instalación)
+- [Inicio de Sesion](#login)
 
 ---
 
@@ -36,5 +37,10 @@ Este proyecto simula un sistema de gestión para un minimarket. Permite realizar
 5. Conecta la carpeta Tomcat en Settings>"Tomcat Server" seleccionando la carpeta 'apache-tomcat-10.1.33'.
 6. Seleccionar Run `pom.xml` y Asignar "Use classpath of module: " la carpeta del proyecto y aplicar
 7. Ejecuta la aplicación haciendo clic en el archivo principal (como `pom.xml`) y seleccionando **Run 'Smart Tomcat: Tomcat: MinimarketDCWebsite'**.
+
+## Login
+- Usuario: admin
+- Contraseña: 1234
+   
 
 ---
