@@ -26,8 +26,12 @@
 
         Producto producto = inventario.obtenerProducto(indiceProducto - 1);
         if (producto != null) {
-            venta.agregarAlCarrito(producto, cantidad);
-            mensaje = "Producto agregado al carrito.";
+            if (producto.getStock() < cantidad) {
+                mensaje = "No hay suficiente stock";
+            } else {
+                venta.agregarAlCarrito(producto, cantidad);
+                mensaje = "Producto agregado al carrito.";
+            }
         } else {
             mensaje = "Producto no encontrado.";
         }

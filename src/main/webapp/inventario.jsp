@@ -45,7 +45,7 @@
 
         // Verificar que el ID del producto sea válido
         if (productoId >= 1 && productoId <= inventario.getProductos().size()) {
-            Producto producto = inventario.getProductos().get(productoId - 1);  // Restamos 1 porque el índice es 0-based
+            Producto producto = inventario.getProductos().get(productoId - 1);
             producto.setStock(producto.getStock() + cantidad);
             session.setAttribute("inventario", inventario); // Actualizar el inventario en sesión
             mensaje = "Stock agregado exitosamente.";
@@ -229,7 +229,7 @@
         .button-group {
             display: flex;
             justify-content: center;
-            gap: 20px;  /* Añadido para separar los botones */
+            gap: 20px;
             width: 100%;
             margin-top: 20px;
         }
@@ -240,7 +240,7 @@
 
     </style>
     <script>
-        // Función para mostrar y ocultar el contenido del acordeón
+        // Función para mostrar y ocultar el contenido del acordeon
         function toggleAccordion(id) {
             var content = document.getElementById(id);
             if (content.style.display === "block") {
@@ -303,7 +303,7 @@
         </tbody>
     </table>
 
-    <!-- Acordeón para las acciones -->
+    <!-- Acordeon para las acciones -->
     <div class="accordion">
         <button type="button" onclick="toggleAccordion('agregarProducto')">Agregar Producto</button>
         <div id="agregarProducto" class="content">
@@ -336,7 +336,6 @@
         <button type="button" onclick="toggleAccordion('solicitudReabastecimiento')">Generar Solicitud de Reabastecimiento</button>
         <div id="solicitudReabastecimiento" class="content">
             <%
-                // Crear una lista de productos con bajo stock
                 ArrayList<Producto> productosBajoStock = new ArrayList<>();
                 for (Producto p : inventario.getProductos()) {
                     if (p.getStock() < 10) {
@@ -352,12 +351,12 @@
                 <h3>Productos con Bajo Stock:</h3>
                 <ul style="list-style-type: none; padding-left: 0;">
                     <%
-                        // Usar el índice del bucle para generar el número del producto
                         for (int i = 0; i < productosBajoStock.size(); i++) {
                             Producto p = productosBajoStock.get(i);
+                            int indiceOriginal = inventario.getProductos().indexOf(p) + 1;
                     %>
                     <li style="padding: 10px; margin: 5px; background-color: #fff4cc; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                        <strong>#<%= i + 1 %> - <%= p.getNombre() %></strong><br>
+                        <strong>#<%= indiceOriginal %> - <%= p.getNombre() %></strong><br>
                         Stock Actual: <%= p.getStock() %><br>
                         Precio de Venta: <%= p.getPrecio() %><br>
                     </li>

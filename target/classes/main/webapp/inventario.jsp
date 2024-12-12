@@ -79,20 +79,6 @@
         productosFiltrados = productos;
     }
 
-    // Acción para eliminar un producto
-    if ("eliminar".equals(accion)) {
-        int productoId = Integer.parseInt(request.getParameter("productoId"));
-
-        // Verificar que el ID del producto sea válido
-        if (productoId >= 1 && productoId <= inventario.getProductos().size()) {
-            Producto productoEliminado = inventario.getProductos().get(productoId - 1);  // Restamos 1 porque el índice es 0-based
-            inventario.getProductos().remove(productoId - 1);  // Eliminar el producto de la lista
-            session.setAttribute("inventario", inventario);  // Actualizar el inventario en sesión
-            mensaje = "Producto '" + productoEliminado.getNombre() + "' eliminado exitosamente.";
-        } else {
-            mensaje = "Producto no encontrado.";
-        }
-    }
 %>
 
 <!DOCTYPE html>
@@ -332,16 +318,6 @@
                 <label>Cantidad en Stock</label>
                 <input type="number" name="stock" required>
                 <button type="submit">Agregar Producto</button>
-            </form>
-        </div>
-
-        <button type="button" onclick="toggleAccordion('eliminarProducto')">Eliminar Producto</button>
-        <div id="eliminarProducto" class="content">
-            <form method="POST" action="inventario.jsp">
-                <input type="hidden" name="accion" value="eliminar">
-                <label>Seleccionar Producto (#)</label>
-                <input type="number" name="productoId" required min="1" max="<%= productos.size() %>">
-                <button type="submit">Eliminar Producto</button>
             </form>
         </div>
 

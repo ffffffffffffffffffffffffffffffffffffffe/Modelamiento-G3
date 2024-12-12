@@ -6,7 +6,6 @@
 <%@ page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    // Usamos application.getRealPath() para obtener la ruta correcta en el servidor
     String archivoHistorial = Venta.getRutaHistorialVentas();
 
     ArrayList<Boleta> historialVentas = new ArrayList<>();
