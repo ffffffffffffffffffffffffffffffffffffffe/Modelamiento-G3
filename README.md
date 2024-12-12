@@ -35,8 +35,8 @@ Este proyecto simula un sistema de gestión para un minimarket. Permite realizar
 3. Selecciona el Archertype "org.apache.maven.archetypes:maven-archetype-webapp"
 4. Copia el repositorio dentro del nuevo proyecto creado.
 5. Conecta la carpeta Tomcat en Settings>"Tomcat Server" seleccionando la carpeta 'apache-tomcat-10.1.34'.
-6. Seleccionar Run `pom.xml` y Asignar "Use classpath of module: " la carpeta del proyecto y aplicar
-7. Ejecuta la aplicación haciendo clic en el archivo principal (como `pom.xml`) y seleccionando **Run 'Smart Tomcat: Tomcat: MinimarketDCWebsite'**.
+6. Seleccionar Run y Asignar "Use classpath of module: " la carpeta del proyecto y aplicar
+7. Ejecuta la aplicación haciendo clic en el archivo principal y seleccionando **Run 'Smart Tomcat: Tomcat: MinimarketDCWebsite'**.
 
 ## Login
 - Usuario: admin
